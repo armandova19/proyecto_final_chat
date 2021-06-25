@@ -2,12 +2,12 @@
 <html lang="es">
   <head>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="icono.jpg">
+    <link rel="shortcut icon" href="icono.jpg"> <!--este link nos pone el icono en la pestaña del navegador web-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.83.1">
-    <title>NodeJs & Socket.IO - Creating a Login system</title>
+    <title>Chat-NodeJs & Socket.IO</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
 
@@ -18,7 +18,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <meta name="theme-color" content="#7952b3">
 
-
+<!--Aqui comienza es apartado de estilos de css-->
     <style>
 	    html,
 body {
@@ -33,14 +33,14 @@ body {
   background-color: #24479250;
 }
 
-.form-signin {
+.form-signin { /*diseño del formulario*/
   width: 100%;
   max-width: 330px;
   padding: 15px;
   margin: auto;
 }
 
-body {
+body { /*el ttamaño de la fuente y diseño del body*/
     font:12px arial;
     color: #222;
     text-align:center;
@@ -67,9 +67,9 @@ a {
   
 #loginform { padding-top:18px; }
   
-    #loginform p { margin: 5px; }
+#loginform p { margin: 5px; }
   
-#chatbox {
+#chatbox {/*diseño de la caja de texxto donde se mostraran los mensajes*/
     text-align:left;
     margin:0 auto;
     margin-bottom:25px;
@@ -104,7 +104,7 @@ a {
   border-radius: 10px;
   width: 100%;
 }
-.imagen{
+.imagen{/*diseño de la imagen del chat*/
   height: 90px;
   width: 80px;
 }
@@ -263,7 +263,7 @@ color:#ffffff;
     <link href="signin.css" rel="stylesheet">
   </head>
   <body class="text-center">
-    
+    <!--parte principal del chat, formulario de login-->
 <main class="form-signin">
   <div class="encabezado">
     <img src="icono3.png" class="imagen">
@@ -282,6 +282,7 @@ color:#ffffff;
       <input type="password" class="form-control" id="Password" placeholder="Password" name="password">
       <label for="floatingPassword">Contraseña</label>
     </div>
+    <!--div para la seleccion de salas-->
     <div class="form-floating">
       <select class="form-select" name="rooms" id="rooms">
         <option selected >Selecciona la sala a ingresar</option>
@@ -295,7 +296,7 @@ color:#ffffff;
     <button class="w-100 btn btn-lg btn-warning" type="button" id="registrar" data-toggle="modal" data-target="#registro">Registrar</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
 </main>
-
+<!--interfaz del chat donde se encuentran la caja de texto de los mensajes -->
 		<div id="wrapper" style="display: none;">
 			<div id="menu">
 				<p class="bienvenido"> Bienvenido, <b id="usernameTag"></b>, con correo: <b id="emailUser"></b></p>
@@ -303,17 +304,12 @@ color:#ffffff;
 			</div>
 			
 			<div id="chatbox">
-<!-- 				Caja del chat que contendrá todos los mensajes. -->
+<!-- 		div de la	caja del chat que contendrá todos los mensajes. -->
 			</div>
 			
 				<input name="usermsg" type="text" id="mensaje" size="63"/>
 				<input type="button" name="submitmsg" id="enviarMensaje" value="Enviar Mensaje"/>
-
-        <!--<div>
-          <select class="form-control" name="roomsCambio" id="roomsCambio">
-            <option >cambiar de sala</option>
-          </select>
-        </div>-->
+      <!--div donde se encuentran las salas a seleccionar-->
         <div class="form-floating">
           <select class="form-select" name="roomsCambio" id="roomsCambio">
             <option selected >Cambiar de sala</option>
@@ -327,13 +323,9 @@ color:#ffffff;
       
 			
 		</div>
-
-   <!-- <select class="form-control" name="roomsCambio" id="roomsCambio">
-      <option selected>cambiar de sala</option>
-    </select>-->
 	
 
-<!-- Modal -->
+<!-- Modal  de registro de usuario-->
 <div class="modal fade" id="registro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -365,37 +357,38 @@ color:#ffffff;
   </div>
 </div>
 
-
+<!--scripts que forman parte del diseño del chat obtenidos de bootstrap-->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 
+<!--script donde tiene funciones y eventos del chat-->
 <script>
 	  $(document).ready(function(){
 		  
 		  var socket = io();
-      let salas = [];
+      let salas = []; //declaracion de una variable tipo array
       socket.emit('getSalas');
 
       socket.on('Salas', function(data){
-        $.each(data, function(id, val){
-          salas.push(data[id].nombre_sala);
-        });
+       // $.each(data, function(id, val){
+         // salas.push(data[id].nombre_sala);
+        //});
         getSalas(salas);
       });
 
-      $('#roomsCambio').change(function(){
+      $('#roomsCambio').change(function(){//funcion para hacer el cambio de sala
         roomID = $(this).find('option: selected').attr('id');
         roomName = $(this).find('option:selected').text();
 
-        roomID = roomID + 1;
+        //roomID = roomID + 1;
 
         $('#SalaNombre').text(roomName);
         $('#chatbox').empty();
 
-        socket.emit('cambiodesala', {
+        socket.emit('cambiodesala', { //evento para el cambio de sala
           idSala: roomID,
           nombreSala: roomName
         });
@@ -403,7 +396,7 @@ color:#ffffff;
         console.log('cambio select a ID: ' + roomID + 'con nombre ' + roomName);
       });
 		  
-		  $("#Login").click(function(){
+		  $("#Login").click(function(){ //evento donde toma los valores ingresados 
 			  socket.emit("login", {
 				  user: $("#userName").val(),
 				  pass: $("#Password").val(),
@@ -412,7 +405,7 @@ color:#ffffff;
 			  });
 		  });
 
-		  $("#sendResgistro").click(function(){
+		  $("#sendResgistro").click(function(){//funcion donde se agrega un usuario
 		  		socket.emit("addUser", {
 				  user: $("#userNameR").val(),
 				  pass: $("#PasswordR").val(),
@@ -420,7 +413,7 @@ color:#ffffff;
 			  });
 		  });
 		  
-		  $(".logout").click(function(){
+		  $(".logout").click(function(){//funcion en la que el usuario sale del chat
 			  socket.emit("salir");
 		  });
 		  
@@ -448,7 +441,8 @@ color:#ffffff;
 				$('#emailUser').text(data.email);
 			});
 
-			socket.on("invalido", function(){
+			socket.on("invalido", function(){ //evento en el que el usuario no esta registrado o los datos
+        //estan mal escritos manda un mensaje en pantalla 
 				alert("Usuario y/o contraseña incorrectos.");
 			});
 
@@ -456,11 +450,11 @@ color:#ffffff;
 				alert("Error: Intenta de nuevo!");
 			});
 			
-			socket.on("vacio", function(){
+			socket.on("vacio", function(){//evento que manda mensaje en pantalla que no ha escrito la informacion en los campos
 				alert("Error: Llena todos las campos.!");
 			});
 			
-			socket.on("UsuarioOK", function(){
+			socket.on("UsuarioOK", function(){//evento en el que señala que el usuario quedo registrdo
 				$('#registro').modal('hide');
 				alert("Dado de alta correctamente.");
 			});
@@ -480,7 +474,7 @@ color:#ffffff;
           }
 			 });
 
-       socket.on('armadoHistorial', function(data){
+       socket.on('armadoHistorial', function(data){//evento en el que se va a juntar todos los mensajes del chat
          var historial = "";
          $.each(data, function(id, val){
            historial += '<p class="mensajeEnviado"><b>' + data[id]['Username'] + 'dijo: </b>' + data[id]['mensaje'] + '</p>';
@@ -493,13 +487,13 @@ color:#ffffff;
 
     function getSalas(data){
       $.each(data, function(id, val){
-        $('#rooms').append($('<option>', {
+        $('#rooms').append($('<option>', {//funcion donde se selecciona la sala al login
           value: data[id].nombre_sala,
           text: data[id].nombre_sala,
           id: data[id].id
         }));
 
-        $('#roomsCambio').append($('<option>', {
+        $('#roomsCambio').append($('<option>', {//funcion deonde hace el cambio de sala
           value: data[id].nombre_sala,
           text: data[id].nombre_sala,
           id: data[id].id

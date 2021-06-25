@@ -65,6 +65,7 @@ io.on('connection', function (socket) {
 	}
 
 	socket.on("login", function(data){
+		console.log(data);
 	  const user = data.user,
 	  pass = data.pass;
 	  roomID = data.roomID;
